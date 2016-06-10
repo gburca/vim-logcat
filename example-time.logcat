@@ -1,0 +1,27 @@
+--------- beginning of system
+06-09 10:43:01.480 I/chatty  ( 1484): uid=1000(system) Binder:1484_2 expire 1 line
+06-09 10:43:01.632 E/ActivityThread( 2436): Failed to find provider info for com.google.android.wearable.settings
+06-09 10:43:23.349 D/ActivityThread( 5001): Loading provider com.google.android.gmail.provider;com.android.mail.notifier;com.google.android.gm.email.provider;com.google.android.gm.email.notifier: com.android.email.provider.EmailProvider
+06-09 10:43:24.853 E/ActivityThread( 5001): Service com.android.email.service.EmailBroadcastProcessorService has leaked ServiceConnection bdy@d45b64c that was originally bound here
+06-09 10:43:24.853 E/ActivityThread( 5001): android.app.ServiceConnectionLeaked: Service com.android.email.service.EmailBroadcastProcessorService has leaked ServiceConnection bdy@d45b64c that was originally bound here
+06-09 10:43:24.853 E/ActivityThread( 5001): 	at android.app.LoadedApk$ServiceDispatcher.<init>(LoadedApk.java:1326)
+06-09 10:43:24.853 E/ActivityThread( 5001): 	at android.app.LoadedApk.getServiceDispatcher(LoadedApk.java:1221)
+06-09 10:43:24.853 E/ActivityThread( 5001): 	at android.app.ContextImpl.bindServiceCommon(ContextImpl.java:1476)
+06-09 10:49:41.980 W/ContextImpl( 7065): Calling a method in the system process without a qualified user: android.app.ContextImpl.startService:1383 android.content.ContextWrapper.startService:613 android.content.ContextWrapper.startService:613 com.android.keychain.KeyChainBroadcastReceiver.onReceive:12 android.app.ActivityThread.handleReceiver:3016 
+--------- beginning of main
+06-09 10:49:42.028 I/Finsky  ( 4684): [1] com.google.android.finsky.receivers.j.a(1182): Installer kick - starting com.google.android.inputmethod.japanese
+06-09 10:49:42.040 W/art     ( 8459): Suspending all threads took: 6.560ms
+06-09 11:58:25.183 E/NEW_BHD (  561): Open /sys/class/power_supply/gb_battery
+06-09 12:13:38.596 D/ACDB-LOADER(  670): ACDB -> ACDB_CMD_GET_AUDPROC_COMMON_TABLE_SIZE
+06-09 12:13:38.596 D/        (  670): ACDBFILE_MGR:Read the devices count as zero, please check the acdb file
+06-09 12:13:38.596 E/ANDR-PERF-RESOURCEQS( 2212): Failed to apply optimization [2, 0]
+06-09 12:13:38.723 W/Bundle  ( 1879): Attempt to cast generated internal exception:
+06-09 12:13:39.134 W/APM::EffectDescriptor(  670): unregisterEffect() unknown effect ID 35
+06-09 12:24:07.649 E/ANDR-PERF-RESOURCEQS( 2212): Failed to apply optimization [2, 0]
+06-09 12:24:08.674 I/Binder:1484_A( 2336): type=1400 audit(0.0:898): avc: denied { write } for uid=1000 name="perfd" dev="tmpfs" ino=30913 scontext=u:r:system_server:s0 tcontext=u:object_r:socket_device:s0 tclass=sock_file permissive=1
+06-09 12:24:09.214 I/.gms.persistent( 7017): type=1400 audit(0.0:900): avc: denied { write } for uid=10019 name="cache" dev="esdfs" ino=1248526 scontext=u:r:priv_app:s0:c512,c768 tcontext=u:object_r:unlabeled:s0 tclass=dir permissive=1
+06-09 12:24:11.100 I/System.out(10508): Sending WAIT chunk
+06-09 12:24:11.951 W/DG.WV   (10576): android.media.UnsupportedSchemeException: Failed to instantiate drm object.
+06-09 14:23:33.688 E/WifiHAL ( 1484): nl80211: requestResponse->nl_recvmsgs success. 1
+06-09 14:25:33.852 V/MultiHal( 1484): writerTask poll() got 2 events.
+06-09 14:25:33.852 V/MultiHal( 1484): writerTask wrote 2 events

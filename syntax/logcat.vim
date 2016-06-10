@@ -41,7 +41,7 @@ syn match   lcTagError    'E\/[[:alnum:]_-]\+'
 " Example:
 " 06-09 10:42:06.729 I/chatty  ( 1484): uid=1000(system) Binder:1484_5 expire 1 line
 "                      ^^^^^^
-syn match   lcComponent   '\/[[:alnum:]_-]\+'ms=s+1
+syn match   lcComponent   '\/[^[:space:](]\+'ms=s+1
                                 \ containedin=lcTag
 
 " Example:

@@ -8,5 +8,6 @@ endfun
 
 au BufNewFile,BufRead *.lc set filetype=logcat
 au BufNewFile,BufRead *.logcat set filetype=logcat
+au BufNewFile,BufRead Boot-*_Set-*_Stream-m.txt set filetype=logcat
 au BufNewFile,BufRead * call s:DetectLogcat()
 

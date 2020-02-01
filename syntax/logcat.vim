@@ -18,7 +18,13 @@ endif
 let s:cpo_save = &cpo
 set cpo&vim
 
-syn match   lcBegin       display '^' nextgroup=lcDate
+syn match   lcBegin       display '^' nextgroup=lcMonotonic,lcDate
+"
+" Example:
+" -0.123 I/chatty  ( 1484): uid=1000(system) Binder:1484_5 expire 1 line
+" ^^^^^^^
+syn match   lcMonotonic   '\s*-\?\d\+\.\d\d\d '
+                                \ nextgroup=lcThread2
 
 " Example:
 " 06-09 10:42:06.729 I/chatty  ( 1484): uid=1000(system) Binder:1484_5 expire 1 line
@@ -35,16 +41,8 @@ syn match   lcTime        '[0-1]\d:[0-5]\d:[0-5]\d\.\d\d\d '
 " Example:
 " 06-09 10:42:06.729 I/chatty  ( 1484): uid=1000(system) Binder:1484_5 expire 1 line
 "                    ^
-syn match   lcPriority    '\(V\|D\|I\|W\|E\|F\)[\/ ]'me=e-1
-                                \ containedin=lcTag nextgroup=lcTag2
-
-" Must come after lcPriority so it has higher match priority
-syn match   lcTagError    'E\/[[:alnum:]_-]\+'
-                                \ containedin=lcTag
-" Example:
-" 06-08 16:17:56.101   566   566 E NEW_BHD : Open /sys/class/power_supply/gb_battery
-syn match   lcTagError2   'E [^:]\+:'
-                                \ nextgroup=lcMsgBody
+syn match   lcPriority    '\<\(V\|D\|I\|W\|E\|F\)[\/ ]'me=e-1
+                                \ containedin=lcTag,lcTag2
 
 " The component may be empty in some cases
 " Example:
@@ -52,7 +50,6 @@ syn match   lcTagError2   'E [^:]\+:'
 "                      ^^^^^^
 syn match   lcComponent   '\/[^[:space:](]\+'ms=s+1
                                 \ containedin=lcTag
-
 
 " Example:
 " 06-09 10:42:06.729 I/chatty  ( 1484): uid=1000(system) Binder:1484_5 expire 1 line
@@ -62,13 +59,21 @@ syn match   lcComponent   '\/[^[:space:](]\+'ms=s+1
 syn match   lcTag         '\w\/[^(]*\s*'
                                 \ nextgroup=lcThread contains=lcTagError,lcPriority,lcComponent,myTags
 
-" Example:
 " 06-08 16:17:55.183 18677 20835 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AFE_COMMON_TABLE
 "                                 ^^^^^^^^^^^^
 " 06-08 16:17:55.183 18677 20835 D         : ACDBFILE_MGR:Read the devices count as zero, please check the acdb file
 "                                 ^^^^^^^^^
-syn match   lcTag2        ' [^:]*\s*:'
-                                \ nextgroup=lcMsgBody contains=myTags
+syn match   lcTag2        '\w [^:]*\s*:'
+                                \ nextgroup=lcMsgBody contains=lcPriority,lcTagError,myTags
+
+" Must come after lcPriority and lcTag2 so it has higher match priority
+syn match   lcTagError    'E\/[[:alnum:]_-]\+'
+                                \ containedin=lcTag
+
+" Example:
+" 06-08 16:17:56.101   566   566 E NEW_BHD : Open /sys/class/power_supply/gb_battery
+syn match   lcTagError2   'E [^:]\+:'
+                                \ nextgroup=lcMsgBody
 
 " Example:
 " 06-09 10:42:06.729 I/chatty  ( 1484): uid=1000(system) Binder:1484_5 expire 1 line
@@ -79,7 +84,7 @@ syn match   lcThread      '(\s*\d\+):'he=e-1
 " 06-08 16:17:55.183 18677 20835 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AFE_COMMON_TABLE
 "                    ^^^^^^^^^^^^
 syn match   lcThread2     '\s*\d\+\s\+\d\+ '
-                                \ nextgroup=lcPriority,lcTagError2 contains=lcNumber
+                                \ nextgroup=lcTag2,lcTagError2 contains=lcNumber
 
 " Example:
 " 06-09 10:42:06.729 I/chatty  ( 1484): uid=1000(system) Binder:1484_5 expire 1 line
@@ -91,6 +96,7 @@ syn match   lcNumber      contained '0x[0-9a-fA-F]*\|\[<[0-9a-f]\+>\]\|\<\d[0-9a
 
 hi def link lcDate        Comment
 hi def link lcTime        SpecialComment
+hi def link lcMonotonic   SpecialComment
 
 hi def link lcTag         Statement
 hi def link lcTag2        Statement
